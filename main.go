@@ -16,6 +16,6 @@ func main() {
 	secret := os.Args[1]
 	data := os.Args[2]
 
-	fmt.Println(lib.NewSHA256Module().EncodeWithSalt(data, secret))
-	fmt.Println(lib.NewSHA256Module().Encode(data))
+	fmt.Printf("sha256, with salt, '%s':\n%s\n", secret, lib.NewSHA256Module().SHA256(data, secret))
+	fmt.Printf("double-sha256, with salt, '%s':\n%s\n", secret, lib.NewSHA256Module().DoubleSHA256(data, secret))
 }

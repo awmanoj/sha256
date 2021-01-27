@@ -1,27 +1,29 @@
 package lib
 
 import (
-	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
 )
 
-type SHA256Module struct{}
+// SHA256Module abstracts the SHA256 hash module
+type SHA256Module struct{
+	Salt string
+}
 
+// NewSHA256Module initializes the module with default non-salt hash.Hash
 func NewSHA256Module() *SHA256Module {
 	return &SHA256Module{}
 }
 
-func (*SHA256Module) EncodeWithSalt(message string, saltKey string) (encrypted string) {
-	h := hmac.New(sha256.New, []byte(saltKey))
-	h.Write([]byte(message))
-	encrypted = hex.EncodeToString(h.Sum(nil))
+// SHA256 will perform a SHA256 encryption and return the encrypted string
+func (m *SHA256Module) SHA256(message string, saltKey string) (encrypted string) {
+	hash := sha256.New()
+	hash.Write([]byte(message + saltKey))
+	encrypted = hex.EncodeToString(hash.Sum(nil))
 	return encrypted
 }
 
-func (*SHA256Module) Encode(message string) (encrypted string) {
-	h := sha256.New()
-	h.Write([]byte(message))
-	encrypted = hex.EncodeToString(h.Sum(nil))
-	return encrypted
+// DoubleSHA256 does a sha256(sha256(...)) operation
+func (m *SHA256Module) DoubleSHA256(message string, saltKey string) (encrypted string) {
+	return m.SHA256(m.SHA256(message, saltKey), "")
 }
