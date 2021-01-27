@@ -1,10 +1,8 @@
 package main
 
 import (
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/hex"
 	"fmt"
+	"github.com/awmanoj/sha256/lib"
 	"log"
 	"os"
 )
@@ -18,9 +16,5 @@ func main() {
 	secret := os.Args[1]
 	data := os.Args[2]
 
-	h := hmac.New(sha256.New, []byte(secret))
-	h.Write([]byte(data))
-	sha256 := hex.EncodeToString(h.Sum(nil))
-
-	fmt.Println(sha256)
+	fmt.Println(lib.NewSHA256Module().Encode(data, secret))
 }
