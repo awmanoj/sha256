@@ -9,13 +9,15 @@ import (
 
 func main() {
 	if len(os.Args) != 3 {
-		log.Printf("Usage: %s secret data\n", os.Args[0])
+		log.Printf("Usage: %s message salt \n", os.Args[0])
 		return
 	}
 
-	secret := os.Args[1]
-	data := os.Args[2]
+	message := os.Args[1]
+	salt := os.Args[2]
 
-	fmt.Printf("sha256, with salt, '%s':\n%s\n", secret, lib.NewSHA256Module().SHA256(data, secret))
-	fmt.Printf("double-sha256, with salt, '%s':\n%s\n", secret, lib.NewSHA256Module().DoubleSHA256(data, secret))
+	m := lib.NewSHA256Module()
+
+	fmt.Printf("SHA256('%s%s') = %s\n", message, salt, m.SHA256(message, salt))
+	fmt.Printf("DoubleSHA256('%s%s') = %s\n", message, salt, m.DoubleSHA256(message, salt))
 }
