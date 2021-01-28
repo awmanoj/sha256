@@ -1,3 +1,6 @@
+// 
+// This code is shamelessly copied (borrowed) from https://geraintluff.github.io/sha256/
+// 
 var sha256 = function sha256(ascii) {
     function rightRotate(value, amount) {
         return (value>>>amount) | (value<<(32 - amount));
