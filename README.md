@@ -25,3 +25,9 @@ SHA256('hello world') = b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ac
 DoubleSHA256('hello world') = 049da052634feb56ce6ec0bc648c672011edff1cb272b53113bbc90a8f00249c
 
 ```
+
+## Javascript 
+
+```
+$ node sha256.js <message> <salt>
+```
