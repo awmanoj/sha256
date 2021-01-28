@@ -18,6 +18,7 @@ func main() {
 
 	m := lib.NewSHA256Module()
 
-	fmt.Printf("SHA256('%s%s') = %s\n", message, salt, m.SHA256(message, salt))
-	fmt.Printf("DoubleSHA256('%s%s') = %s\n", message, salt, m.DoubleSHA256(message, salt))
+	fmt.Printf("%s%s\n", message, salt)
+	fmt.Printf("SHA256 = %s\n", m.SHA256(message, salt))
+	fmt.Printf("DoubleSHA256 = %s\n", m.DoubleSHA256(message, salt))
 }
